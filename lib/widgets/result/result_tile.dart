@@ -14,7 +14,12 @@ class ResultTile extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(attraction.name), Text(attraction.waitTime)],
+          children: [
+            Text(attraction.name,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold)),
+            Text(attraction.waitTime)
+          ],
         ));
   }
 }

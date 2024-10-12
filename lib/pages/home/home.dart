@@ -2,10 +2,13 @@ import 'package:disney_time_keeper/config/router/routes.dart';
 import 'package:disney_time_keeper/models/attraction.dart';
 import 'package:disney_time_keeper/widgets/base/base_button.dart';
 import 'package:disney_time_keeper/widgets/base/base_image_container.dart';
+import 'package:disney_time_keeper/widgets/base/base_select.dart';
 import 'package:disney_time_keeper/widgets/base/base_textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
+import 'package:disney_time_keeper/utils/constants/attraction_const.dart'
+    as attraction_const;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,11 +19,38 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   String keyWord = '';
+  String park = '';
+  int category = 0;
 
   void setKeyWord(String value) {
     setState(() {
       keyWord = value;
     });
+  }
+
+  void setPark(String value) {
+    setState(() {
+      park = value;
+    });
+  }
+
+  void setCaterogy(String value) {
+    setState(() {
+      category = int.parse(value);
+    });
+  }
+
+  String getUrl() {
+    switch (category) {
+      case 1:
+        return attraction_const.attractionUrl + park;
+      case 2:
+        return attraction_const.greetingUrl + park;
+      case 3:
+        return attraction_const.restaurantUrl + park;
+      default:
+        return '';
+    }
   }
 
   Future<List<Attraction>> search(String url) async {
@@ -49,6 +79,31 @@ class HomeState extends State<Home> {
     });
   }
 
+  bool parkMustBeNotNull(String? park) {
+    if (park == null || park.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  bool categoryMustBeNotNull(int? category) {
+    if (category == null || category == 0) {
+      return false;
+    }
+    return true;
+  }
+
+  showNotNullErrorMessage(BuildContext context) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('選択肢を選んでください'),
+      backgroundColor: Colors.red,
+      action: SnackBarAction(
+          label: 'OK',
+          textColor: Colors.white,
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseImageContainer(
@@ -60,12 +115,24 @@ class HomeState extends State<Home> {
             children: [
               BaseTextformField(
                   label: 'キーワード', setValue: (value) => setKeyWord(value)),
+              BaseSelect(
+                  option: attraction_const.parkOption,
+                  hintText: 'パーク',
+                  onSelected: (value) => setPark(value)),
+              BaseSelect(
+                  option: attraction_const.categoryOption,
+                  hintText: 'カテゴリ',
+                  onSelected: (value) => setCaterogy(value)),
               BaseButton(
                   label: '検索',
                   onPressed: () async {
-                    List<Attraction> attractions = await search(
-                        'https://tokyodisneyresort.info/greeting_realtime.php?park=land&order=name');
-                    moveResult(attractions);
+                    if (parkMustBeNotNull(park) &&
+                        categoryMustBeNotNull(category)) {
+                      List<Attraction> attractions = await search(getUrl());
+                      moveResult(attractions);
+                    } else {
+                      showNotNullErrorMessage(context);
+                    }
                   })
             ],
           ),
