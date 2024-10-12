@@ -53,6 +53,13 @@ class HomeState extends State<Home> {
     }
   }
 
+  bool filterByKeyWord(String name) {
+    if (name.toLowerCase().contains(keyWord.toLowerCase())) {
+      return true;
+    }
+    return false;
+  }
+
   Future<List<Attraction>> search(String url) async {
     List<Attraction> attractions = [];
     final target = Uri.parse(url);
@@ -67,8 +74,10 @@ class HomeState extends State<Home> {
         .map((element) => element.text.trim())
         .toList();
     for (var i = 0; i < nameList.length; i++) {
-      final attraction = Attraction(name: nameList[i], waitTime: waitList[i]);
-      attractions.add(attraction);
+      if (filterByKeyWord(nameList[i])) {
+        final attraction = Attraction(name: nameList[i], waitTime: waitList[i]);
+        attractions.add(attraction);
+      }
     }
     return attractions;
   }
