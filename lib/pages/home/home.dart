@@ -79,7 +79,11 @@ class HomeState extends State<Home> {
         attractions.add(attraction);
       }
     }
-    return attractions;
+    if (attractions.isEmpty) {
+      throw showErrorMessage('検索結果が0件です');
+    } else {
+      return attractions;
+    }
   }
 
   void moveResult(List<Attraction> attractions) {
@@ -102,9 +106,9 @@ class HomeState extends State<Home> {
     return true;
   }
 
-  showNotNullErrorMessage(BuildContext context) {
+  showErrorMessage(String errorMessage) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text('選択肢を選んでください'),
+      content: Text(errorMessage),
       backgroundColor: Colors.red,
       action: SnackBarAction(
           label: 'OK',
@@ -140,7 +144,7 @@ class HomeState extends State<Home> {
                       List<Attraction> attractions = await search(getUrl());
                       moveResult(attractions);
                     } else {
-                      showNotNullErrorMessage(context);
+                      showErrorMessage('選択肢を選んでください');
                     }
                   })
             ],
