@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
   final List<Attraction> attractions;
+  final int category;
 
-  const Result({super.key, required this.attractions});
+  const Result({super.key, required this.attractions, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +16,11 @@ class Result extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Colors.white.withOpacity(0),
             body: Container(
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-                child: Column(children: [
-              for (var attraction in attractions)
-                ResultTile(attraction: attraction)
-            ])))));
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                    child: Column(children: [
+                  for (var attraction in attractions)
+                    ResultTile(attraction: attraction, category: category)
+                ])))));
   }
 }

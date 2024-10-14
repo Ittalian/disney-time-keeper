@@ -93,9 +93,10 @@ class HomeState extends State<Home> {
     }
   }
 
-  void moveResult(List<Attraction> attractions) {
+  void moveResult(List<Attraction> attractions, int category) {
     Navigator.pushNamed(context, Routes.result, arguments: {
       'attractions': attractions,
+      'category': category,
     });
   }
 
@@ -151,7 +152,7 @@ class HomeState extends State<Home> {
                         categoryMustBeNotNull(category)) {
                       List<Attraction> attractions = await search(getUrl());
                       await LoadingDialog.hide(context);
-                      moveResult(attractions);
+                      moveResult(attractions, category);
                     } else {
                       await LoadingDialog.hide(context);
                       showErrorMessage('選択肢を選んでください');
