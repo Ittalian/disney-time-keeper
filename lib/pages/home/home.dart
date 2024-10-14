@@ -1,7 +1,6 @@
 import 'package:disney_time_keeper/config/router/routes.dart';
 import 'package:disney_time_keeper/models/attraction.dart';
 import 'package:disney_time_keeper/widgets/base/base_button.dart';
-import 'package:disney_time_keeper/widgets/base/base_image_container.dart';
 import 'package:disney_time_keeper/widgets/base/base_select.dart';
 import 'package:disney_time_keeper/widgets/base/base_textform_field.dart';
 import 'package:flutter/material.dart';
@@ -119,10 +118,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseImageContainer(
-        imagePath: 'images/home.jpg',
-        child: Scaffold(
-          backgroundColor: Colors.white.withOpacity(0),
+    return Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -149,6 +145,6 @@ class HomeState extends State<Home> {
                   })
             ],
           ),
-        ));
+        );
   }
 }
