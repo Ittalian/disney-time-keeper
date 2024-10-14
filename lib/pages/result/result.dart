@@ -10,9 +10,11 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
+        body: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
             child: Column(children: [
       for (var attraction in attractions) ResultTile(attraction: attraction)
-    ])));
+    ]))));
   }
 }
