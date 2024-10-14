@@ -14,10 +14,12 @@ class Result extends StatelessWidget {
         imagePath: 'images/result.jpg',
         child: Scaffold(
             backgroundColor: Colors.white.withOpacity(0),
-            body: SingleChildScrollView(
+            body: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
                 child: Column(children: [
               for (var attraction in attractions)
                 ResultTile(attraction: attraction)
-            ]))));
+            ])))));
   }
 }

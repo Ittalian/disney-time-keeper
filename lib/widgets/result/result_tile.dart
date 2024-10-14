@@ -9,7 +9,7 @@ class ResultTile extends StatelessWidget {
   String formatWaitTime(String waitTime) {
     String trimmedWaitTime = waitTime.replaceAll(RegExp(r'\s'), '');
     return trimmedWaitTime.replaceFirstMapped(
-        RegExp(r'(\S)(\d{1,2}:\d{2}-\d{1,2}:\d{2})'), (Match match) {
+        RegExp(r'(\S)(\(?\d{1,2}:\d{2}-\d{1,2}:\d{2}\)?)'), (Match match) {
       return '${match.group(1)}\n${match.group(2)}';
     });
   }
