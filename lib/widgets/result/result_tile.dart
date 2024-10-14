@@ -3,7 +3,7 @@ import 'package:disney_time_keeper/models/attraction.dart';
 import 'package:disney_time_keeper/models/current_detail.dart';
 import 'package:disney_time_keeper/models/past_detail.dart';
 import 'package:disney_time_keeper/utils/loading/loading_dialog.dart';
-import 'package:disney_time_keeper/widgets/base/base_button.dart';
+import 'package:disney_time_keeper/widgets/base/base_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
@@ -62,7 +62,7 @@ class ResultTile extends StatelessWidget {
                 textAlign: TextAlign.center),
             Text(formatWaitTime(attraction.waitTime),
                 textAlign: TextAlign.center),
-            BaseButton(
+            BaseTextButton(
                 label: '詳細を見る', onPressed: () => renderResultDetail(context))
           ],
         ));
