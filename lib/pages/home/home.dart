@@ -73,9 +73,14 @@ class HomeState extends State<Home> {
         .querySelectorAll('a .realtime-attr-condition')
         .map((element) => element.text.trim())
         .toList();
+    final hrefList = document
+        .querySelectorAll('.realtime-attr a')
+        .map((tag) => tag.attributes['href'].toString())
+        .toList();
     for (var i = 0; i < nameList.length; i++) {
       if (filterByKeyWord(nameList[i])) {
-        final attraction = Attraction(name: nameList[i], waitTime: waitList[i]);
+        final attraction = Attraction(
+            name: nameList[i], waitTime: waitList[i], detailHref: hrefList[i]);
         attractions.add(attraction);
       }
     }
