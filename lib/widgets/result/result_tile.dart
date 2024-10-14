@@ -2,6 +2,7 @@ import 'package:disney_time_keeper/config/router/routes.dart';
 import 'package:disney_time_keeper/models/attraction.dart';
 import 'package:disney_time_keeper/models/current_detail.dart';
 import 'package:disney_time_keeper/models/past_detail.dart';
+import 'package:disney_time_keeper/utils/loading/loading_dialog.dart';
 import 'package:disney_time_keeper/widgets/base/base_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,7 @@ class ResultTile extends StatelessWidget {
   }
 
   void renderResultDetail(BuildContext context) async {
+    await LoadingDialog.show(context, '読み込み中');
     final target = Uri.parse(attraction_const.baseUrl + attraction.detailHref);
     final response = await http.get(target);
     final document = parse(response.body);
@@ -35,8 +37,7 @@ class ResultTile extends StatelessWidget {
         todayMaxWaitTime: waitTimeList[2]);
     PastDetail pastDetail = PastDetail(
         averageWaitTime: waitTimeList[3], maxWaitTime: waitTimeList[4]);
-    print(pastDetail.averageWaitTime);
-    print(pastDetail.maxWaitTime);
+    await LoadingDialog.hide(context);
     moveResultDetail(context, currentDetail, pastDetail);
   }
 

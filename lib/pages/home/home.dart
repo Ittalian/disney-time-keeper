@@ -1,5 +1,6 @@
 import 'package:disney_time_keeper/config/router/routes.dart';
 import 'package:disney_time_keeper/models/attraction.dart';
+import 'package:disney_time_keeper/utils/loading/loading_dialog.dart';
 import 'package:disney_time_keeper/widgets/base/base_button.dart';
 import 'package:disney_time_keeper/widgets/base/base_select.dart';
 import 'package:disney_time_keeper/widgets/base/base_textform_field.dart';
@@ -84,6 +85,7 @@ class HomeState extends State<Home> {
       }
     }
     if (attractions.isEmpty) {
+      LoadingDialog.hide(context);
       throw showErrorMessage('検索結果が0件です');
     } else {
       return attractions;
@@ -140,11 +142,14 @@ class HomeState extends State<Home> {
               BaseButton(
                   label: '検索',
                   onPressed: () async {
+                    await LoadingDialog.show(context, '検索中');
                     if (parkMustBeNotNull(park) &&
                         categoryMustBeNotNull(category)) {
                       List<Attraction> attractions = await search(getUrl());
+                      await LoadingDialog.hide(context);
                       moveResult(attractions);
                     } else {
+                      await LoadingDialog.hide(context);
                       showErrorMessage('選択肢を選んでください');
                     }
                   })
