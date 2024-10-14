@@ -27,10 +27,10 @@ class CurrentDetailTable extends StatelessWidget {
               label,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )),
-        BaseTableRow(label: '現在の待ち時間', value: currentDetail.currentWaitTime, leftWidth: 200, rightWidth: 80),
+        BaseTableRow(label: '現在の待ち時間', value: currentDetail.currentWaitTime, leftWidth: 200, rightWidth: 80, height: 80),
         BaseTableRow(
-            label: '本日の平均待ち時間', value: currentDetail.todayAverageWaitTime, leftWidth: 200, rightWidth: 80),
-        BaseTableRow(label: '本日の最大待ち時間', value: currentDetail.todayMaxWaitTime, leftWidth: 200, rightWidth: 80),
+            label: '本日の平均待ち時間', value: currentDetail.todayAverageWaitTime, leftWidth: 200, rightWidth: 80, height: 80),
+        BaseTableRow(label: '本日の最大待ち時間', value: currentDetail.todayMaxWaitTime, leftWidth: 200, rightWidth: 80, height: 80),
       ],
     );
   }

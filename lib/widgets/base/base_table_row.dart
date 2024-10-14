@@ -7,6 +7,7 @@ class BaseTableRow extends StatelessWidget {
   final String value;
   final double leftWidth;
   final double rightWidth;
+  final double height;
   final String? url;
   final Color? textColor;
 
@@ -16,6 +17,7 @@ class BaseTableRow extends StatelessWidget {
       required this.value,
       required this.leftWidth,
       required this.rightWidth,
+      required this.height,
       this.url,
       this.textColor});
 
@@ -33,6 +35,7 @@ class BaseTableRow extends StatelessWidget {
             text: label,
             backGroundColor: Colors.white,
             width: leftWidth,
+            height: height,
             border: Border.all()),
         url == null
             ? BaseTableContainer(
@@ -40,6 +43,7 @@ class BaseTableRow extends StatelessWidget {
                 textColor: textColor,
                 backGroundColor: const Color.fromARGB(255, 194, 227, 255),
                 width: rightWidth,
+                height: height,
                 border: const Border(
                   top: BorderSide(color: Colors.black),
                   right: BorderSide(color: Colors.black),
@@ -52,6 +56,7 @@ class BaseTableRow extends StatelessWidget {
                     textColor: textColor,
                     backGroundColor: const Color.fromARGB(255, 194, 227, 255),
                     width: rightWidth,
+                    height: height,
                     border: const Border(
                       top: BorderSide(color: Colors.black),
                       right: BorderSide(color: Colors.black),
